@@ -39,24 +39,24 @@ export class ProductsService {
     return this.prisma.product.findMany({ where: { published: false } });
   }
 
-  findAllPaginated(connectionArgs: ConnectionArgs) {
-    const where: Prisma.ProductWhereInput = {
-      published: true,
-    };
-    const productPage = findManyCursorConnection(
-      (args) => this.prisma.product.findMany({ ...args, where }),
-      () =>
-        this.prisma.product.count({
-          where,
-        }),
-      connectionArgs,
-      {
-        recordToEdge: (record) => ({
-          node: new ProductEntity(record),
-        }),
-      },
-    );
-
-    return new Page<ProductEntity>(productPage);
-  }
+  // findAllPaginated(connectionArgs: ConnectionArgs) {
+  //   const where: Prisma.ProductWhereInput = {
+  //     published: true,
+  //   };
+  //   const productPage = findManyCursorConnection(
+  //     (args) => this.prisma.product.findMany({ ...args, where }),
+  //     () =>
+  //       this.prisma.product.count({
+  //         where,
+  //       }),
+  //     connectionArgs,
+  //     // {
+  //     //   recordToEdge: (record) => ({
+  //     //     node: new ProductEntity(record),
+  //     //   }),
+  //     // },
+  //   );
+  //
+  //   return new Page<ProductEntity>(productPage);
+  // }
 }

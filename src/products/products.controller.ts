@@ -19,9 +19,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ProductEntity } from './entities/product.entity';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { ConnectionArgs } from '../page/connection-args.dto';
 import { ApiPageResponse } from '../page/api-page-response.decorator';
+import { Page } from '../page/page.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('api/v1/products')
 @ApiTags('products')
@@ -42,11 +43,11 @@ export class ProductsController {
     return this.productsService.findAll();
   }
 
-  @Get('paginated-products')
-  @ApiPageResponse(ProductEntity)
-  findAllPaginated(@Query() connectionArgs: ConnectionArgs) {
-    return this.productsService.findAllPaginated(connectionArgs);
-  }
+  // @Get('paginated-products')
+  // @ApiPageResponse(ProductEntity)
+  // findAllPaginated(@Query() connectionArgs: ConnectionArgs) {
+  //   return this.productsService.findAllPaginated(connectionArgs);
+  // }
 
   @Get(':id')
   @ApiResponse({ type: ProductEntity })
