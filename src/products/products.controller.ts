@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiCreatedResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ProductEntity } from './entities/product.entity';
+import { ConnectionArgs } from '../page/connection-args.dto';
+import { ApiPageResponse } from '../page/api-page-response.decorator';
 
 @Controller('api/v1/products')
 @ApiTags('products')
@@ -28,6 +31,12 @@ export class ProductsController {
   @ApiResponse({ type: ProductEntity, isArray: true })
   findAll() {
     return this.productsService.findAll();
+  }
+
+  @Get('paginated-products')
+  @ApiPageResponse(ProductEntity)
+  findAllPaginated(@Query() connectionArgs: ConnectionArgs) {
+    return this.productsService.findAllPaginated(connectionArgs);
   }
 
   @Get(':id')
