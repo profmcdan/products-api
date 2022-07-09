@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ProductsModule } from './products/products.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -14,6 +15,7 @@ import * as Joi from 'joi';
     }),
     PrismaModule,
     ProductsModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

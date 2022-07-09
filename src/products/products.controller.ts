@@ -6,20 +6,29 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { ApiCreatedResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiExtraModels,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { ProductEntity } from './entities/product.entity';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Controller('api/v1/products')
 @ApiTags('products')
+// @ApiExtraModels(Page)
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Post()
   @ApiCreatedResponse({ type: ProductEntity })
+  @UseGuards(JwtAuthGuard)
   create(@Body() createProductDto: CreateProductDto) {
     return this.productsService.create(createProductDto);
   }
